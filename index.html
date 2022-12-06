@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>calculator</title>
+  <link href="style.css" rel="stylesheet" type="text/css" />
+</head>
+
+
+ < body id="body_screen">
+    <div class="container">
+        <h1 align="center" id="calc-style">
+            CALCULATOR
+        </h1>
+    </div>
+    <divclass="calculator-container"id="calculator_container_screen">
+      
+        <div class="calculator">
+            <input type="text" title="You can directly type." id="screen" maxlength="30" readonly />
+            <div class="calc-buttons">
+                <br>
+                <div class="functions-one">
+                    <button class="button numbers">
+                        <h1>7</h1>
+                    </button>
+                    <button class="button numbers">
+                        <h1>8</h1>
+                    </button>
+                    <button class="button numbers">
+                        <h1>9</h1>
+                    </button>
+                    <div class="separate-btn"></div>
+                    <button class="button numbers">
+                        <h1>4</h1>
+                    </button>
+                    <button class="button numbers">
+                        <h1>5</h1>
+                    </button>
+                    <button class="button numbers">
+                        <h1>6</h1>
+                    </button>
+                    <div class="separate-btn"></div>
+                    <button class="button numbers">
+                        <h1>1</h1>
+                    </button>
+                    <button class="button numbers">
+                        <h1>2</h1>
+                    </button>
+                    <button class="button numbers">
+                        <h1>3</h1>
+                    </button>
+                    <div class="separate-btn"></div>
+                    <button class="button">
+                        <h1>C</h1>
+                    </button>
+                    <button class="button numbers">
+                        <h1>0</h1>
+                    </button>
+                    <button class="button basic-stuff">
+                        <h1>.</h1>
+                    </button>
+                </div>
+                <div class="padding-functions"></div>
+                <div class="functions-two">
+                    <button class="button basic-stuff">
+                        <h1>+</h1>
+                    </button>
+                    <button class="button basic-stuff">
+                        <h1>-</h1>
+                    </button>
+                    <button class="button basic-stuff">
+                        <h1>x</h1>
+                    </button>
+
+                    <div class="separate-btn"></div>
+
+                    <button class="button basic-stuff">
+                        <h1><span>&#247;</span></h1>
+                    </button>
+                    <button class="button basic-stuff">
+                        <h1>(</h1>
+                    </button>
+                    <button class="button basic-stuff">
+                        <h1>)</h1>
+                    </button>
+                    <div class="separate-btn"></div>
+
+                    <button class="button complex-stuff">
+                        <h1><span>&#x221A;</span></h1>
+                    </button>
+                  <button class="button complex-stuff"
+                    <h1>x 2</h1>
+                    </button>
+                </button>
+                 <button class="button complex-stuff" 
+                  <h1>%</h1>
+                  </button>
+                  <div class="seperate-btn"></div>
+
+                  <button class="button complex-stuff">
+                    <h1>x  !</h1>
+                  </button>
+                  <button class="button complex-stuff">
+                    <h1>x ^</h1>
+                  </button>
+                <button class="button complex -stuff">
+                  <h1>e <sup> x</sup></h1>
+                </button>
+                </div>
+              <br>
+
+              <br>
+              <div class="more-functions-toggle">
+      <button class="more-toggle-btn">MORE FUNCTIONS</button>
+                    <div class="other-functions">
+             <button class="button complex-stuff">
+              <h1>bin</h1>
+                        </button>
+                  <button class="button complex-stuff">
+                            <h1>dec</h1>
+                  <button class="button complex-stuff">
+                                <h1>pi</h1>
+              
+          
+                    <button class="button complex-stuff">
+                        <h1>log <sup>10</sup>
+                        </h1>
+                    </button>
+
+               <button class="button complex-stuff">
+                                    <h1>1/x</sub>
+                                    </h1>
+                                </button>
+
+                                <button class="button complex-stuff">
+                                    <h1>x <sup>3</sup></h1>
+                                    </h1>
+                                </button>
+                    </div>
+                </div>
+                <br>
+                <div class="functions-three">
+                    <button class="button triggers">
+                        <h1>=</h1>
+                    </button>
+                </div>
+                <div class="historyDisplay">
+                    <h2>HISTORY</h2>
+                    <table id="tableParent">
+                    </table>
+                    <button onclick="clearLocalStorage()" class="hClear-btn">Clear History</button>
+                </div>
+            </div>
+            </div>
+    </div>
+    <div class="toggleHistory">
+        <button id="showHistoryButton" class="more-toggle-btn">HISTORY</button>
+    </div>
+
+    <audio src="tink.wav"></audio>
+
+    <script src="script.js"></script>
+    <br></br>
+    <footer class="end">
+        <p class="love">Made with <span style="color: #e25555;">&hearts;</span> by <a href="https://github.com/sonalipsadwibei">sonalipsa Dwibei</a></p>
+    </footer>
+                      
+  <script src="script.js"></script>
+
+ <!--
+  This script places a badge on your repl's full-browser view back to your repl's cover
+  page. Try various colors for the theme: dark, light, red, orange, yellow, lime, green,
+  teal, blue, blurple, magenta, pink!
+  -->
+  <script src="https://replit.com/public/js/replit-badge.js" theme="blue" defer></script> 
+</body>
+
+</html>
