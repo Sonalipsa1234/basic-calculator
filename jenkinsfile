@@ -25,9 +25,6 @@ pipeline {
         }
 
         stage('Push image') {
-            when {
-                success()
-            }
             steps {
                 withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', passwordVariable: 'DOCKER_PASSWORD', usernameVariable: 'DOCKER_USERNAME')]) {
                     bat """
