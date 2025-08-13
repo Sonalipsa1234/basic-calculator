@@ -11,7 +11,7 @@ pipeline {
         stage('Build image') {
             steps {
                 bat """
-                docker build -t sonalipsa/calculator-app .
+                docker build -t sonalipsa/calculator-app:latest -t sonalipsa/calculator-app:%BUILD_NUMBER% .
                 """
             }
         }
@@ -19,7 +19,7 @@ pipeline {
         stage('Test image') {
             steps {
                 bat """
-                docker run --rm sonalipsa/calculator-app sh -c "npm test || echo 'No tests found, skipping...'"
+                docker run --rm sonalipsa/calculator-app:latest sh -c "npm test || echo 'No tests found, skipping...'"
                 """
             }
         }
@@ -29,8 +29,8 @@ pipeline {
                 withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', passwordVariable: 'DOCKER_PASSWORD', usernameVariable: 'DOCKER_USERNAME')]) {
                     bat """
                     echo %DOCKER_PASSWORD% | docker login -u %DOCKER_USERNAME% --password-stdin
-                    docker tag sonalipsa/calculator-app %DOCKER_USERNAME%/calculator-app:latest
                     docker push %DOCKER_USERNAME%/calculator-app:latest
+                    docker push %DOCKER_USERNAME%/calculator-app:%BUILD_NUMBER%
                     """
                 }
             }
