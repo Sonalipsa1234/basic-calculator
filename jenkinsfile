@@ -10,12 +10,17 @@ node {
     }
 
     stage('Test image') {
-        // Run container without mounting workspace
+        // Run container without mounting workspace (Windows safe)
         bat 'docker run --rm yourdockerhubuser/yourapp echo "Tests passed"'
     }
 
     stage('Push image') {
-        docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
+        // Check credentials exist before trying to push
+        if (!env.DOCKER_HUB_CREDENTIALS_ID) {
+            error "Missing DOCKER_HUB_CREDENTIALS_ID environment variable in Jenkins"
+        }
+        
+        docker.withRegistry('https://index.docker.io/v1/', env.DOCKER_HUB_CREDENTIALS_ID) {
             app.push("${env.BUILD_NUMBER}")
             app.push("latest")
         }
