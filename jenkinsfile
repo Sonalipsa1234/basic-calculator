@@ -10,8 +10,8 @@ node {
     }
 
     stage('Test image') {
-        // Run tests directly with docker run to avoid inside() Windows path issue
-        bat "docker run --rm %appName% cmd /c \"echo Tests passed\""
+        // Use the image name instead of 'cmd'
+        bat """docker run --rm ${appName} cmd /c "echo Tests passed" """
     }
 
     stage('Push image') {
