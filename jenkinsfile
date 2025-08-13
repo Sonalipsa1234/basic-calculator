@@ -23,19 +23,18 @@ pipeline {
                 """
             }
         }
-    }
 
-    post {
-        success {
-            stage('Push image') {
-                steps {
-                    withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', passwordVariable: 'DOCKER_PASSWORD', usernameVariable: 'DOCKER_USERNAME')]) {
-                        bat """
-                        echo %DOCKER_PASSWORD% | docker login -u %DOCKER_USERNAME% --password-stdin
-                        docker push %DOCKER_USERNAME%/calculator-app:latest
-                        docker push %DOCKER_USERNAME%/calculator-app:%BUILD_NUMBER%
-                        """
-                    }
+        stage('Push image') {
+            when {
+                success()
+            }
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', passwordVariable: 'DOCKER_PASSWORD', usernameVariable: 'DOCKER_USERNAME')]) {
+                    bat """
+                    echo %DOCKER_PASSWORD% | docker login -u %DOCKER_USERNAME% --password-stdin
+                    docker push %DOCKER_USERNAME%/calculator-app:latest
+                    docker push %DOCKER_USERNAME%/calculator-app:%BUILD_NUMBER%
+                    """
                 }
             }
         }
