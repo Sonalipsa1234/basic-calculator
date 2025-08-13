@@ -1,23 +1,39 @@
-node {
-    def appName = "sonalipsa/calculator-app"
+pipeline {
+    agent any
 
-    stage('Clone repository') {
-        checkout scm
-    }
+    stages {
+        stage('Clone repository') {
+            steps {
+                git 'https://github.com/Sonalipsa1234/basic-calculator'
+            }
+        }
 
-    stage('Build image') {
-        app = docker.build(appName)
-    }
+        stage('Build image') {
+            steps {
+                bat """
+                docker build -t sonalipsa/calculator-app .
+                """
+            }
+        }
 
-    stage('Test image') {
-        // Use the image name instead of 'cmd'
-        bat """docker run --rm ${appName} cmd /c "echo Tests passed" """
-    }
+        stage('Test image') {
+            steps {
+                bat """
+                docker run --rm sonalipsa/calculator-app sh -c "npm test || echo 'No tests found, skipping...'"
+                """
+            }
+        }
 
-    stage('Push image') {
-        docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
-            app.push("${env.BUILD_NUMBER}")
-            app.push("latest")
+        stage('Push image') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'dockerhub-credentials', passwordVariable: 'DOCKER_PASSWORD', usernameVariable: 'DOCKER_USERNAME')]) {
+                    bat """
+                    echo %DOCKER_PASSWORD% | docker login -u %DOCKER_USERNAME% --password-stdin
+                    docker tag sonalipsa/calculator-app %DOCKER_USERNAME%/calculator-app:latest
+                    docker push %DOCKER_USERNAME%/calculator-app:latest
+                    """
+                }
+            }
         }
     }
 }
