@@ -1,19 +1,17 @@
 node {
-    def app
+    def appName = "sonalipsa/calculator-app"
 
     stage('Clone repository') {
         checkout scm
     }
 
     stage('Build image') {
-        // Replace with your Docker Hub username/repo
-        app = docker.build("sonalipsa/calculator-app")
+        app = docker.build(appName)
     }
 
     stage('Test image') {
-        app.inside {
-            sh 'echo "Tests passed"'
-        }
+        // Run tests directly with docker run to avoid inside() Windows path issue
+        bat "docker run --rm %appName% cmd /c \"echo Tests passed\""
     }
 
     stage('Push image') {
