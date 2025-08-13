@@ -2,27 +2,19 @@ node {
     def app
 
     stage('Clone repository') {
-        /* Clone the source code from the repository */
         checkout scm
     }
 
     stage('Build image') {
-        /* Build Docker image from Dockerfile in the workspace */
         app = docker.build("yourdockerhubuser/yourapp")
     }
 
     stage('Test image') {
-        /* Run tests inside the container */
-        app.inside {
-            sh 'echo "Tests passed"'
-        }
+        // Run container without mounting workspace
+        bat 'docker run --rm yourdockerhubuser/yourapp echo "Tests passed"'
     }
 
     stage('Push image') {
-        /* Push the image to Docker Hub with two tags:
-         * 1. Jenkins build number (unique version)
-         * 2. 'latest' tag
-         */
         docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
             app.push("${env.BUILD_NUMBER}")
             app.push("latest")
